@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using static UnityEngine.GraphicsBuffer;
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 
 //This is the statemachine class, of which all the states should be children.
 public class EnemySM : MonoBehaviour, IDamageable, IKnockbackable {
+
+    public event EventHandler OnDeath;
+    public static event EventHandler OnAnyDeath;
 
     [SerializeField] private float _defaultMovementSpeed;
     public float DefaultMovementSpeed {
@@ -56,6 +60,7 @@ public class EnemySM : MonoBehaviour, IDamageable, IKnockbackable {
 
     private void Awake() {
         _currentHealth = _maxHealth;
+        isDead = false;
         _rb = GetComponent<Rigidbody2D>();
         _collider = GetComponent<CircleCollider2D>();
         ResetMovementParameters();
@@ -161,10 +166,21 @@ public class EnemySM : MonoBehaviour, IDamageable, IKnockbackable {
     {
         _currentHealth -= amount;
         if(_currentHealth < 0){
-            Destroy(gameObject);
+            Die();
         }
 
 
+    }
+    private bool isDead = false;
+    private void Die() {
+        if (!isDead) {
+            isDead = true;
+            OnDeath?.Invoke(this, EventArgs.Empty);
+            OnAnyDeath?.Invoke(this, EventArgs.Empty);
+        }
+
+
+        Destroy(gameObject);
     }
 
     public void Knockback(Vector2 force) {
