@@ -94,9 +94,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5946567945832672275}
   - component: {fileID: 8316174588315254404}
+  - component: {fileID: 4825882346305398108}
   - component: {fileID: 4858883716835139765}
   - component: {fileID: 1034357314899706926}
-  - component: {fileID: 4825882346305398108}
+  - component: {fileID: -5337302427605321209}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -134,53 +135,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
---- !u!50 &4858883716835139765
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4598755915509801999}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!114 &1034357314899706926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4598755915509801999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06594e39f2733440982fdddf39e0c1da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meleeDamage: 100
-  bulletPrefab: {fileID: 8100299465952018352, guid: 59e4030b170fa4a8aa12446d7c5c3415, type: 3}
-  gunRotationPoint: {fileID: 6302754405237183791}
-  meleeRange: {fileID: 7974736055586448212}
-  gunLocation: {fileID: 7992599432904920974}
-  fireDelay: 0.2
-  meleeDelay: 0.1
-  hitIndicator: {fileID: 6429115628783744405, guid: e14af8f3a6b2b44efb40765aa6ef8b59, type: 3}
 --- !u!58 &4825882346305398108
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -216,6 +170,66 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!50 &4858883716835139765
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4598755915509801999}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!114 &1034357314899706926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4598755915509801999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06594e39f2733440982fdddf39e0c1da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeDamage: 100
+  bulletPrefab: {fileID: 8100299465952018352, guid: 59e4030b170fa4a8aa12446d7c5c3415, type: 3}
+  gunRotationPoint: {fileID: 6302754405237183791}
+  meleeRange: {fileID: 7974736055586448212}
+  gunLocation: {fileID: 7992599432904920974}
+  fireDelay: 0.2
+  meleeDelay: 0.1
+  hitIndicator: {fileID: 6429115628783744405, guid: e14af8f3a6b2b44efb40765aa6ef8b59, type: 3}
+--- !u!114 &-5337302427605321209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4598755915509801999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0032d27f1e7754294b1150a12f0f2ac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!1 &6302754405237183791
 GameObject:
   m_ObjectHideFlags: 0
