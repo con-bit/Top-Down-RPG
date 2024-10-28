@@ -10,6 +10,7 @@ public class CameraFollower : MonoBehaviour
     {
         get; set;
     }
+
     public static CameraFollower Instance { get; private set; }
 
     // Ref to the player.
@@ -109,6 +110,11 @@ public class CameraFollower : MonoBehaviour
             FollowTarget = false;
             SetZeroPosition();
         }
+    }
+
+    public void SetTarget(Transform target)
+    {
+        this.target = target;
     }
 
     public void SetPosition(Vector3 pos)
