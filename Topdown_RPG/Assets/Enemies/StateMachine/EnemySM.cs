@@ -133,10 +133,7 @@ public class EnemySM : MonoBehaviour, IDamageable, IKnockbackable {
     /// <returns>void</returns>
     private void HandleMovement() {
         Vector2 pos = transform.position;
-        Vector2 movementDirection = _movementParameters.Target - pos;
-        if (movementDirection.magnitude > 1f) {
-            movementDirection.Normalize();
-        }
+        Vector2 movementDirection = (_movementParameters.Target - pos).normalized;
 
         Vector2 desiredV = movementDirection * _movementParameters.Speed;
         Vector2 differenceV = desiredV - _rb.velocity;
@@ -147,7 +144,7 @@ public class EnemySM : MonoBehaviour, IDamageable, IKnockbackable {
         _rb.AddForce(differenceV.normalized * differenceFactor * _movementParameters.Force);
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         HandleMovement();
     }
 
