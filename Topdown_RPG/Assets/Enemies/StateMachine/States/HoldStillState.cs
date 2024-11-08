@@ -11,12 +11,16 @@ public class HoldStillState : EnemyState
     protected override void OnEnable() {
         base.OnEnable();
         _duration = Random.Range(_durationRange.x, _durationRange.y);
-        _enemySM.ResetMovementParameters();
+
+        // this syntax seems silly, that I have to specify a whole new EnemyMovementParamter struct to do this.
+        _enemySM.MovementParameters = new EnemyMovementParameters(Vector2.zero, 0.0f, 0.0f);
     }
+
 
     private void Update() {
         if(Time.time - _timeEntered > _duration) {
             _enemySM.SwitchState(_stateToExitTo);
+            _enemySM.ResetMovementParameters();
         }
     }
      
