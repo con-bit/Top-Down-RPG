@@ -37,8 +37,11 @@ public class PlayerController : MonoBehaviour
     {
         // note: using GetAxis() allows use to have some smoothing and damping 
         // built into the input manager, can change to GetAxisRaw() for snappier movement
-        rb.velocity = new Vector2(Input.GetAxis("Horizontal"),
-            Input.GetAxis("Vertical")).normalized * speed;
+        if (!isRolling)
+        {
+            rb.velocity = new Vector2(Input.GetAxis("Horizontal"),
+                Input.GetAxis("Vertical")).normalized * speed;
+        }
 
         //// sprinting
         // if shift is pressed, speed increases to sprint value. otherwise, speed stays its original value.
@@ -55,15 +58,14 @@ public class PlayerController : MonoBehaviour
         // Check if the player presses the roll key and roll is off cooldown and player is moving
         if (Input.GetKeyDown(KeyCode.Space) && (Time.time > lastRollTime + rollCooldown) && !isRolling && ((Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)))
         {
-            Debug.Log("Rolling");
             StartRoll();
         }
         // If rolling, check if the roll duration has ended
         if (isRolling && Time.time > rollEndTime)
         {
-            Debug.Log("End Rolling");
             EndRoll();
         }
+        
 
     }
 
