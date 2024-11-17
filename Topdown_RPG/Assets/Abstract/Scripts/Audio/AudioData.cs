@@ -36,7 +36,6 @@ public class AudioData : ScriptableObject
     [SerializeField] public List<AudioTypeClipPair<MusicAudio>> audioMusicClipPairs;
     [SerializeField] public List<AudioTypeClipPair<SFXAudio>> audioSFXClipPairs;
 
-
     // invoked when AudioData Inspector Changes.
     public event UnityAction<AudioData> AudioDataInspectorChanged;
 

@@ -9,40 +9,35 @@ using System.Threading.Tasks;
 public class SceneLoader : MonoBehaviour
 {
     // singleton sceneloader
-    private static SceneLoader sceneLoader = null;
-
-    /// <summary>
-    /// called when script is loaded into memory
-    /// </summary>
-    private void Awake()
-    {
-        this.SingletonSceneLoader();
-        this.SubscribeToSystemEvents();
-    }
+    private static SceneLoader instance = null;
 
     /// <summary>
     /// assigns the first existing sceneloader to static sceneloader.
-    ///     otherwise deletes any other sceneloader when loading into other scenes.
     /// </summary>
-    private void SingletonSceneLoader()
+    public void Awake()
     {
-        if (sceneLoader == null)
+        if (SceneLoader.instance == null)
         {
-            sceneLoader = this;
+            SceneLoader.instance = this.GetComponent<SceneLoader>();
+
+            SceneLoader.instance.SubscribeToSystemEvents();
+
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
             Destroy(this.gameObject);
         }
-
-        DontDestroyOnLoad(this.gameObject);
     }
 
+    /// <summary>
+    /// subscribe to system events for loading scenes.
+    /// </summary>
     private void SubscribeToSystemEvents()
     {
-        EventManager.OnSceneTransitionStarted += UnloadLoadScene;
-        EventManager.OnSceneTransitionFinalize += FinalizeScene;
-        EventManager.OnSceneTransitionComplete += StartScene;
+        EventManager.Instance.OnSceneTransitionStarted += UnloadLoadScene;
+        EventManager.Instance.OnSceneTransitionFinalize += FinalizeScene;
+        EventManager.Instance.OnSceneTransitionComplete += StartScene;
     }
 
     /// <summary>
@@ -50,7 +45,7 @@ public class SceneLoader : MonoBehaviour
     ///     unload/load a scene with a sceneField.
     /// </summary>
     /// <param name="sceneToLoad"> scene as a SceneField. </param>
-    public Task UnloadLoadScene(SceneField sceneToLoad)
+    private Task UnloadLoadScene(SceneField sceneToLoad)
     {
         // Darken Screen here.
         // loading screen here
@@ -66,7 +61,7 @@ public class SceneLoader : MonoBehaviour
     /// any other work needed for after scene is loaded in.
     /// </summary>
     /// <param name="sceneToLoad"> scene as a SceneField. </param>
-    public Task FinalizeScene()
+    private Task FinalizeScene()
     {
         // dunno
         // Debug.Log("OnSceneTransitionFinalize");
@@ -76,7 +71,7 @@ public class SceneLoader : MonoBehaviour
     /// <summary>
     /// complete scene transition start gameplay.
     /// </summary>
-    public Task StartScene()
+    private Task StartScene()
     {
         // Darken screen UI
         // unactive loadscreen UI

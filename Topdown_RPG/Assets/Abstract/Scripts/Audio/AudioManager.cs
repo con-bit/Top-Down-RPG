@@ -2,40 +2,36 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    // singleton sceneloader
-    private static AudioManager audioManager = null;
-    private static AudioData audioData = null;
+    private static AudioManager instance = null;
+    private AudioData audioData = null;
     private AudioSource audioSourceMusic;
     private AudioSource audioSourceSFX;
 
     /// <summary>
-    /// called when script is loaded into memory
+    /// creates a audio manager gameobject first time its used.
+    ///     Use the instance to get to the methods to play the sounds.
     /// </summary>
-    private void Awake()
+    public static AudioManager Instance
     {
-        this.SingletonAudioManager();
-    }
-
-    /// <summary>
-    /// assigns the first existing sceneloader to static sceneloader.
-    ///     otherwise deletes any other sceneloader when loading into other scenes.
-    /// </summary>
-    private void SingletonAudioManager()
-    {
-        if (audioManager == null)
+        get
         {
-            audioData = Resources.Load<AudioData>("Abstract/Audio/AudioData");
-            audioData.AudioDataInspectorChanged += OnAudioDataInspectorChanged;
-            audioManager = this;
-            audioSourceMusic = this.gameObject.AddComponent<AudioSource>();
-            audioSourceSFX = this.gameObject.AddComponent<AudioSource>();
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
+            if (AudioManager.instance == null)
+            {
+                GameObject AudioManagerGameObject = new GameObject("AudioManager");
 
-        DontDestroyOnLoad(this.gameObject);
+                AudioManager.instance = AudioManagerGameObject.AddComponent<AudioManager>();
+
+                AudioManager.instance.audioData = Resources.Load<AudioData>("Abstract/Audio/AudioData");
+                AudioManager.instance.audioData.AudioDataInspectorChanged += AudioManager.instance.OnAudioDataInspectorChanged;
+
+                AudioManager.instance.audioSourceMusic = AudioManagerGameObject.AddComponent<AudioSource>();
+                AudioManager.instance.audioSourceSFX = AudioManagerGameObject.AddComponent<AudioSource>();
+
+                DontDestroyOnLoad(AudioManagerGameObject);
+            }
+
+            return instance;
+        }
     }
 
     /// <summary>
@@ -60,8 +56,8 @@ public class AudioManager : MonoBehaviour
         {
             if (audioMusic == audioData.audioMusicClipPairs[index].audioTypeSound)
             {
-                // whenever current audioclip is the same wanting to be played dont do anything
-                if (audioSourceMusic.clip != audioData.audioMusicClipPairs[index].audioClip)
+                // whenever current audioclip is the same wanting to be played and it is currently being played dont do anything
+                if (audioSourceMusic.clip != audioData.audioMusicClipPairs[index].audioClip || !audioSourceMusic.isPlaying)
                 {
                     // if previous audio is being played stop
                     if (audioSourceMusic.isPlaying)

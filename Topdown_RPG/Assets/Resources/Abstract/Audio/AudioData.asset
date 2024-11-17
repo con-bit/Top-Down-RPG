@@ -12,10 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce53f85dd81ecf42b5d7d8b0c1c249c, type: 3}
   m_Name: AudioData
   m_EditorClassIdentifier: 
-  audioDefaultClipPairs:
+  audioMusicClipPairs:
   - audioTypeSound: 0
-    audioClip: {fileID: 0}
-  - audioTypeSound: 1
-    audioClip: {fileID: 0}
-  - audioTypeSound: 2
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: f60d637de60be5e4eb9f4fe2ef6ca717, type: 3}
+  audioSFXClipPairs: []
